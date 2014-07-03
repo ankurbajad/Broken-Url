@@ -1,0 +1,54 @@
+<h1>Home#index</h1>
+<p>Find me in app/views/home/index.html.erb</p>
+
+<p>All Url's some of them are valid and invalid</p>
+
+<%= link_to "posts", posts_path%>
+<%= link_to "comments", comments_path%>
+<%= link_to 'New Post', new_post_path %>
+
+<a href="/43">43</a>
+<a href="/ass4e">ass4e</a>
+<a href="/333">333</a>
+<a href="/ss">ss</a>
+<a href="/post">post</a>
+<a href="/posts">posts</a>
+<a href="/s222s">s22s</a>
+<br/>
+<br/>
+
+
+<%= button_tag "Check Url Validation", :id=>"url_check" %>
+
+<div class="error_data"></div>
+
+<script>
+
+$(document).ready(function(){
+	$("#url_check").click(function(){
+		$(".error_data").empty()
+		var page_data = $("html")
+		get_url(page_data)
+	});
+});
+
+function get_data(page_url, anchor){
+	  $.ajax({
+	     url: page_url,
+	     success:function(data) {
+	      $(".error_data").prepend("<span style='color:green'>Correct Link = </span><a href="+anchor+" target='_blank'>"+anchor+"</a><br/>")
+	     },
+	     error: function(data) {
+	       $(".error_data").prepend("<span style='color:red'>Broken Link = </span><a href="+anchor+">"+anchor+"</a><br/>")
+	     }
+	  })
+}
+
+function get_url(data){
+	var html_data = $(data).find("a")
+	html_data.each(function(index) {
+	  get_data(this,this)
+	})
+}
+</script>
+
